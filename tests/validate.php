@@ -185,10 +185,15 @@ foreach ($requiredImages as $image) {
     );
 }
 
-// Count gallery images
+// Count gallery images (including subdirectories)
 $galleryDir = __DIR__ . '/../assets/images/gallery';
 if (is_dir($galleryDir)) {
-    $galleryImages = glob($galleryDir . '/*.jpg');
+    $galleryImages = array_merge(
+        glob($galleryDir . '/*.jpg'),
+        glob($galleryDir . '/*.jpeg'),
+        glob($galleryDir . '/*/*.jpg'),
+        glob($galleryDir . '/*/*.jpeg')
+    );
     $validator->test(
         'Gallery Images Count',
         count($galleryImages) >= 7,

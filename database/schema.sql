@@ -55,18 +55,18 @@ INSERT INTO packages (name, subtitle, duration, price, features, image, is_popul
 
 -- Insert gallery images
 INSERT INTO gallery_images (title, filename, category, sort_order, is_featured) VALUES
-('Majestic Leopard', 'gallery-1.jpg', 'leopard', 1, 1),
-('Safari Landscape', 'gallery-2.jpg', 'landscape', 2, 1),
-('Natural Beauty', 'gallery-3.jpg', 'wildlife', 3, 1),
-('Wild Encounters', 'gallery-4.jpg', 'leopard', 4, 1),
-('Wilderness Adventure', 'gallery-5.jpg', 'wildlife', 5, 1),
-('Nature''s Canvas', 'gallery-6.jpg', 'birds', 6, 1),
-('Safari Magic', 'gallery-7.jpg', 'leopard', 7, 1),
-('Leopard Family', 'gallery-8.jpg', 'leopard', 8, 0),
-('Forest Path', 'gallery-9.jpg', 'landscape', 9, 0),
-('Eagle Portrait', 'gallery-10.jpg', 'birds', 10, 0),
-('Deer in Meadow', 'gallery-11.jpg', 'wildlife', 11, 0),
-('Leopard at Rest', 'gallery-12.jpg', 'leopard', 12, 0);
+('Majestic Leopard', 'leapords/leapord_01.jpg', 'leopard', 1, 1),
+('Elephant Family', 'elephants/elephant_01.jpg', 'wildlife', 2, 1),
+('Eagle in Flight', 'birds/bird_01.jpg', 'birds', 3, 1),
+('Leopard in Tree', 'leapords/leapord_05.jpg', 'leopard', 4, 1),
+('Forest Fox', 'foxes/fox_01.jpg', 'wildlife', 5, 1),
+('Colorful Bird', 'birds/bird_02.jpg', 'birds', 6, 1),
+('Resting Leopard', 'leapords/leapord_10.jpg', 'leopard', 7, 1),
+('Elephant Portrait', 'elephants/elephant_02.jpg', 'wildlife', 8, 0),
+('Spotted Deer', 'deer/deer_01.jpg', 'wildlife', 9, 0),
+('Tropical Bird', 'birds/bird_03.jpg', 'birds', 10, 0),
+('Curious Monkey', 'monkey_01.jpeg', 'wildlife', 11, 0),
+('Leopard Gaze', 'leapords/leapord_15.jpg', 'leopard', 12, 0);
 
 -- Insert site settings
 INSERT INTO settings (key, value) VALUES

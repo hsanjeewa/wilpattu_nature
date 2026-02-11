@@ -47,7 +47,12 @@ wilpattu-nature/
 │       │   ├── package-night.jpg
 │       │   └── package-ruins.jpg
 │       └── gallery/
-│           ├── gallery-1.jpg through gallery-12.jpg
+│           ├── birds/ (bird_01.jpg through bird_09.jpg)
+│           ├── deer/ (deer_01.jpg)
+│           ├── elephants/ (elephant_01.jpg through elephant_03.jpg)
+│           ├── foxes/ (fox_01.jpg through fox_04.jpg)
+│           ├── leapords/ (leapord_01.jpg through leapord_25.jpg)
+│           └── monkey_01.jpeg
 └── tests/
     ├── index.php
     └── validate.php
