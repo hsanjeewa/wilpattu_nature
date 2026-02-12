@@ -1,0 +1,9 @@
+.env
+database/wilpattu.db
+*.log
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

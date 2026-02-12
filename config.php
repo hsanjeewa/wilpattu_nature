@@ -3,6 +3,9 @@
  * Wilpattu Nature - Configuration File
  */
 
+require_once __DIR__ . '/includes/dotenv.php';
+loadEnv(__DIR__ . '/.env');
+
 // Error reporting (disable in production)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -33,13 +36,13 @@ define('ADDRESS', 'Wilpattu National Park, North Western Province, Sri Lanka');
 define('WHATSAPP_NUMBER', '+94772075924');
 
 // SMTP Configuration for email notifications
-define('SMTP_HOST', 'mail.wilsafari.com');
-define('SMTP_PORT', 465); // SSL/TLS port
-define('SMTP_USERNAME', 'booking@wilsafari.com');
-define('SMTP_PASSWORD', 'w1l@5@far1');
-define('SMTP_FROM_EMAIL', 'booking@wilsafari.com');
-define('SMTP_FROM_NAME', 'Wilpattu Nature');
-define('BOOKING_RECIPIENT', 'booking@wilsafari.com');
+define('SMTP_HOST', env('SMTP_HOST', 'mail.wilsafari.com'));
+define('SMTP_PORT', (int) env('SMTP_PORT', '465'));
+define('SMTP_USERNAME', env('SMTP_USERNAME', ''));
+define('SMTP_PASSWORD', env('SMTP_PASSWORD', ''));
+define('SMTP_FROM_EMAIL', env('SMTP_FROM_EMAIL', 'booking@wilsafari.com'));
+define('SMTP_FROM_NAME', env('SMTP_FROM_NAME', 'Wilpattu Nature'));
+define('BOOKING_RECIPIENT', env('BOOKING_RECIPIENT', 'booking@wilsafari.com'));
 
 // Social media links
 define('FACEBOOK_URL', 'https://facebook.com/wilpattunature');
