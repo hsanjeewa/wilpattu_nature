@@ -8,6 +8,7 @@
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 class Validator {
     private $errors = [];
@@ -167,21 +168,53 @@ try {
 
 // Test 6: Images
 echo "\n--- Images ---\n";
-$requiredImages = [
-    'assets/images/logo.png',
-    'assets/images/hero/hero-elephant.jpg',
-    'assets/images/packages/package-half-day.jpg',
-    'assets/images/packages/package-full-day.jpg',
-    'assets/images/packages/package-extended.jpg',
-    'assets/images/packages/package-night.jpg',
-    'assets/images/packages/package-ruins.jpg'
+$requiredImageOptions = [
+    ['assets/images/logo.png'],
+    [
+        'assets/images/hero/hero-elephant.jpg',
+        'assets/images/hero/hero-elephant.jpeg',
+        'assets/images/hero/hero-elephant.webp'
+    ],
+    [
+        'assets/images/packages/package-half-day.jpg',
+        'assets/images/packages/package-half-day.jpeg',
+        'assets/images/packages/package-half-day.webp'
+    ],
+    [
+        'assets/images/packages/package-full-day.jpg',
+        'assets/images/packages/package-full-day.jpeg',
+        'assets/images/packages/package-full-day.webp'
+    ],
+    [
+        'assets/images/packages/package-extended.jpg',
+        'assets/images/packages/package-extended.jpeg',
+        'assets/images/packages/package-extended.webp'
+    ],
+    [
+        'assets/images/packages/package-night.jpg',
+        'assets/images/packages/package-night.jpeg',
+        'assets/images/packages/package-night.webp'
+    ],
+    [
+        'assets/images/packages/package-ruins.jpg',
+        'assets/images/packages/package-ruins.jpeg',
+        'assets/images/packages/package-ruins.webp'
+    ]
 ];
 
-foreach ($requiredImages as $image) {
+foreach ($requiredImageOptions as $options) {
+    $label = $options[0];
+    $exists = false;
+    foreach ($options as $imageOption) {
+        if (file_exists(__DIR__ . '/../' . $imageOption)) {
+            $exists = true;
+            break;
+        }
+    }
     $validator->test(
-        "Image: $image",
-        file_exists(__DIR__ . '/../' . $image),
-        "Image $image does not exist"
+        "Image: $label",
+        $exists,
+        'None of the expected image variants exist: ' . implode(', ', $options)
     );
 }
 

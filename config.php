@@ -11,7 +11,16 @@ ini_set('display_errors', 1);
 define('DB_PATH', __DIR__ . '/database/wilpattu.db');
 
 // Site configuration
-define('SITE_URL', 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']));
+if (PHP_SAPI === 'cli' || empty($_SERVER['HTTP_HOST'])) {
+    // Fallback for CLI/cron contexts where HTTP_HOST is not defined
+    define('SITE_URL', 'https://wilsafari.com');
+} else {
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['SERVER_PORT'] ?? null) == 443;
+    $scheme = $isSecure ? 'https://' : 'http://';
+    $path = dirname($_SERVER['PHP_SELF'] ?? '/') ?: '';
+    $normalizedPath = rtrim(str_replace('\\', '/', $path), '/');
+    define('SITE_URL', rtrim($scheme . $_SERVER['HTTP_HOST'] . ($normalizedPath ? '/' . ltrim($normalizedPath, '/') : ''), '/'));
+}
 define('SITE_NAME', 'Wilpattu Nature');
 define('SITE_TAGLINE', 'Sri Lanka\'s Premier Wildlife Experience');
 
@@ -22,6 +31,15 @@ define('EMAIL_PRIMARY', 'info@wilsfari.com');
 define('EMAIL_SECONDARY', 'bookings@wilsafari.com');
 define('ADDRESS', 'Wilpattu National Park, North Western Province, Sri Lanka');
 define('WHATSAPP_NUMBER', '+94772075924');
+
+// SMTP Configuration for email notifications
+define('SMTP_HOST', 'mail.wilsafari.com');
+define('SMTP_PORT', 465); // SSL/TLS port
+define('SMTP_USERNAME', 'booking@wilsafari.com');
+define('SMTP_PASSWORD', 'w1l@5@far1');
+define('SMTP_FROM_EMAIL', 'booking@wilsafari.com');
+define('SMTP_FROM_NAME', 'Wilpattu Nature');
+define('BOOKING_RECIPIENT', 'booking@wilsafari.com');
 
 // Social media links
 define('FACEBOOK_URL', 'https://facebook.com/wilpattunature');

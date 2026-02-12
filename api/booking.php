@@ -6,6 +6,8 @@
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/email.php';
 
 // Set JSON response header
 header('Content-Type: application/json');
@@ -76,8 +78,15 @@ try {
     $result = $db->saveBooking($bookingData);
 
     if ($result) {
-        // Optionally send email notification here
-        // sendBookingNotification($bookingData);
+        sendBookingNotification($bookingData);
+        $calendarData = $bookingData;
+        register_shutdown_function(function () use ($calendarData) {
+            try {
+                addToCalendar($calendarData);
+            } catch (Throwable $e) {
+                error_log("Calendar update failed (deferred): " . $e->getMessage());
+            }
+        });
 
         echo json_encode([
             'success' => true,
@@ -95,27 +104,9 @@ try {
 }
 
 /**
- * Optional: Send email notification
+ * Send email notification via SMTP
  */
 function sendBookingNotification($data)
 {
-    $to = EMAIL_PRIMARY;
-    $subject = 'New Safari Booking Request - ' . $data['full_name'];
-
-    $message = "New booking request received:\n\n";
-    $message .= "Name: " . $data['full_name'] . "\n";
-    $message .= "Email: " . $data['email'] . "\n";
-    $message .= "Preferred Date: " . $data['preferred_date'] . "\n";
-    $message .= "Number of Guests: " . $data['num_guests'] . "\n";
-    if ($data['package_id']) {
-        $message .= "Package ID: " . $data['package_id'] . "\n";
-    }
-    if ($data['message']) {
-        $message .= "Message: " . $data['message'] . "\n";
-    }
-
-    $headers = 'From: ' . EMAIL_PRIMARY . "\r\n";
-    $headers .= 'Reply-To: ' . $data['email'] . "\r\n";
-
-    @mail($to, $subject, $message, $headers);
+    return sendBookingEmail($data);
 }

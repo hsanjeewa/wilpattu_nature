@@ -30,6 +30,13 @@ class Database {
     }
     
     /**
+     * Execute a raw SQL query (for testing and maintenance)
+     */
+    public function query($sql) {
+        return $this->db->query($sql);
+    }
+    
+    /**
      * Get all packages
      */
     public function getPackages() {
