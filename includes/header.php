@@ -17,6 +17,10 @@ require_once __DIR__ . '/functions.php';
     <meta property="og:description" content="Experience Sri Lanka's largest national park with expert-guided safaris.">
     <meta property="og:type" content="website">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="64x64" href="<?php echo asset('images/favicon.png'); ?>">
+    <link rel="shortcut icon" href="<?php echo asset('images/favicon.png'); ?>">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
