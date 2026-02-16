@@ -7,27 +7,47 @@ This file is a short, practical guide for automated coding agents working in thi
 
 Quick commands
 --------------
-- Run the full installer/validation test suite (CLI):
+**Run all tests:**
+```bash
+php tests/validate.php              # CLI validation suite (exit code 0 = success)
+```
 
-  php tests/validate.php
+**Browser-based tests:**
+```
+http://localhost/tests/             # Visual test results in browser
+```
 
-- Run a quick PHP syntax check across the repo:
+**Syntax checks:**
+```bash
+php -l path/to/file.php             # Syntax check a single file
+php -l includes/db.php              # Example: Check db.php
+```
 
-  php -l file.php        # syntax check a single file
+**Run a single test (ad-hoc examples):**
+```bash
+# Check PHP version requirement
+php -r "require 'config.php'; echo (PHP_VERSION_ID >= 80000 ? 'PASS\n' : 'FAIL\n');"
 
-- Run an ad-hoc single-check (examples):
+# Test database connection
+php -r "require 'config.php'; require 'includes/db.php'; try { Database::getInstance(); echo 'DB OK\n'; } catch (Exception \$e) { echo 'DB FAIL: '.\$e->getMessage().'\n'; }"
 
-  # Check PHP version meets requirement
-  php -r "require 'config.php'; echo (PHP_VERSION_ID >= 80000 ? 'PASS\n' : 'FAIL\n');"
+# Verify CSRF token function
+php -r "require 'config.php'; require 'includes/functions.php'; echo (function_exists('verifyCsrfToken') ? 'PASS\n' : 'FAIL\n');"
 
-  # Check DB connection
-  php -r "require 'config.php'; require 'includes/db.php'; try { Database::getInstance(); echo 'DB OK\n'; } catch (Exception \$e) { echo 'DB FAIL: '.\$e->getMessage().'\n'; }"
+# Check SQLite extension
+php -r "echo (extension_loaded('sqlite3') ? 'PASS\n' : 'FAIL\n');"
+
+# Test email validation
+php -r "require 'includes/functions.php'; echo (isValidEmail('test@example.com') ? 'PASS\n' : 'FAIL\n');"
+```
 
 Repository basics
 -----------------
-- Language: PHP 8.x (no Composer manifest detected in repo root)
-- DB: SQLite (database/wilpattu.db). The DB is auto-created by the Database class on first run.
-- Frontend: TailwindCSS and AlpineJS via CDN — no frontend build step present.
+- **Language**: PHP 8.0+ (no Composer - intentionally dependency-free except bundled PHPMailer)
+- **Database**: SQLite3 (database/wilpattu.db) - auto-created by Database class on first run
+- **Frontend**: TailwindCSS and AlpineJS via CDN - no build step, no npm/webpack
+- **Email**: PHPMailer (bundled in includes/PHPMailer/) for SMTP email with attachment support
+- **Environment**: .env file loaded via custom dotenv.php (see includes/dotenv.php)
 
 Where things live
 ------------------
@@ -73,45 +93,75 @@ The project uses a pragmatic, simple PHP style. Agents must follow existing patt
 - PHP versions & runtime:
   - Target: PHP 8.0+. Use typed features conservatively unless updating the entire codebase.
 
-- Naming:
-  - Classes: PascalCase (Database)
-  - Functions: camelCase (getPackages, saveBooking, isValidEmail, formatPrice)
-  - Constants: UPPER_SNAKE_CASE (DB_PATH, SITE_NAME)
-  - Files: lower-case with hyphens or underscores as currently present (e.g., wilpattu.db, validate.php)
+- Naming (STRICT - follow exactly):
+  - Classes: PascalCase (Database, Validator)
+  - Functions: camelCase (getPackages, saveBooking, isValidEmail, formatPrice, verifyCsrfToken)
+  - Constants: UPPER_SNAKE_CASE (DB_PATH, SITE_NAME, SMTP_HOST, BOOKING_RECIPIENT)
+  - Files: lowercase with hyphens/underscores (booking.php, validate.php, safari-ops.php)
+  - Variables: camelCase or snake_case (existing code uses both - match the surrounding context)
 
 - Imports & requires:
-  - Use require_once for shared files (existing pattern). Do not introduce namespaces unless performing a broader modernisation.
+  - Use `require_once __DIR__ . '/relative/path.php';` for all includes
+  - Example: `require_once __DIR__ . '/../config.php';` (from api/booking.php)
+  - Example: `require_once __DIR__ . '/includes/db.php';` (from index.php)
+  - NO namespaces, NO use statements, NO Composer autoload (intentional simplicity)
+  - Load order: config.php → db.php → functions.php → other files
 
 - Indentation & formatting:
   - Existing files use 4-space indentation. Continue with 4-space indent for new PHP files.
   - Keep short functions. Use early returns for validation failures (current pattern in api/booking.php).
 
 - Error handling:
-  - Use try/catch for operations that may throw (DB initialization and writes use exceptions).
-  - Return user-friendly messages in API responses; log details server-side if implementing logging.
-  - Do not suppress errors with the @ operator. (Note: sendBookingNotification currently uses @mail — avoid adding more suppression.)
+  - Use try/catch for operations that may throw (Database methods, email sending, external APIs)
+  - Example: `try { $db->saveBooking($data); } catch (Exception $e) { /* handle */ }`
+  - API endpoints: return early with specific error messages and HTTP status codes
+  - Example: `http_response_code(400); echo json_encode(['success' => false, 'errors' => $errors]);`
+  - Return user-friendly messages to clients; log technical details server-side
+  - NEVER use @ error suppression operator (one legacy exception in email.php - don't add more)
 
-- Security & sanitization:
-  - Sanitize output using htmlspecialchars (helper e()).
-  - Use prepared statements for DB (Database::saveBooking uses prepared statements). Keep this pattern.
-  - Verify CSRF tokens on form submissions and API requests (verifyCsrfToken).
+- Security & sanitization (CRITICAL):
+  - Output escaping: Use `e($string)` helper (alias for htmlspecialchars with ENT_QUOTES, UTF-8)
+  - Example: `echo e($user_input);` NOT `echo $user_input;`
+  - SQL: ALWAYS use prepared statements with bindValue (see Database::getPackage example)
+  - Example: `$stmt->bindValue(':id', $id, SQLITE3_INTEGER);`
+  - CSRF: Verify tokens on ALL state-changing operations
+  - Example: `if (!verifyCsrfToken($input['csrf_token'])) { /* reject */ }`
+  - Input sanitization: `htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8')` before DB storage
 
 - Database interactions:
-  - Use the Database class (Database::getInstance()) rather than creating raw SQLite3 instances across the codebase.
-  - Preserve JSON-encoded columns (features) as arrays when reading from DB (existing pattern).
+  - ALWAYS use Database::getInstance() singleton - never create raw SQLite3 instances
+  - Example: `$db = Database::getInstance(); $packages = $db->getPackages();`
+  - JSON columns: Decode on read, encode on write (see packages.features, gallery_images metadata)
+  - Example: `$row['features'] = json_decode($row['features'], true);`
+  - Use SQLITE3_ASSOC for associative arrays, SQLITE3_INTEGER/TEXT for type binding
+  - Call $db->init() only during initial setup - tables auto-created from schema.sql
 
 - Tests & images:
   - tests/validate.php expects certain images and sample data to be present. If you modify image filenames or package counts, update the validator accordingly.
 
 Agent workflow (practical rules)
 -------------------------------
-1. Read the files you will touch. Find similar code in includes/ and pages/partials/ and follow its style.
-2. Run quick checks:
-   - php -l modified/file.php
-   - php tests/validate.php (if your change touches DB or templates)
-3. Do not commit on behalf of human maintainers unless explicitly asked.
-4. Do not add new runtime dependencies without approval. This project intentionally avoids Composer-managed dependencies.
-5. If you introduce modernisation (namespaces, composer, phpstan), create a short plan and ask for review before implementing.
+**Before making changes:**
+1. Read the files you will modify and 2-3 similar files for style reference
+2. Check includes/ for existing helper functions before writing new ones
+3. Review pages/partials/ for reusable components before duplicating logic
+
+**After making changes:**
+1. Syntax check: `php -l path/to/modified-file.php`
+2. If DB/config changed: `php tests/validate.php`
+3. If API changed: Test the endpoint manually or write an ad-hoc test
+4. Check for type errors, undefined variables, missing requires
+
+**Before committing:**
+- Verify all tests pass: `php tests/validate.php` (exit code 0)
+- Check you haven't introduced @ error suppression or raw SQLite3 instances
+- Confirm CSRF protection on new forms/API endpoints
+- Do NOT commit unless explicitly requested by the user
+
+**Modernisation:**
+- Do NOT add Composer, npm, webpack, or build tools without approval
+- This project intentionally avoids package managers (except bundled PHPMailer)
+- If proposing namespaces/PSR-4/phpstan, create a migration plan and request review first
 
 Cursor / Copilot rules
 -----------------------

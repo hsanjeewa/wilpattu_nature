@@ -1,0 +1,5 @@
+assets/images/packages/package-half-day.jpg
+assets/images/packages/package-full-day.jpg
+assets/images/packages/package-extended.jpg
+assets/images/packages/package-night.jpg
+assets/images/packages/package-ruins.jpg

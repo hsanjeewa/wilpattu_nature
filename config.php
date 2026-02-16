@@ -45,10 +45,11 @@ define('SMTP_FROM_NAME', env('SMTP_FROM_NAME', 'Wilpattu Nature'));
 define('BOOKING_RECIPIENT', env('BOOKING_RECIPIENT', 'booking@wilsafari.com'));
 
 // Social media links
-define('FACEBOOK_URL', 'https://facebook.com/wilpattunature');
+define('FACEBOOK_URL', 'https://www.facebook.com/share/1GUNBWJ8fD/');
 define('INSTAGRAM_URL', 'https://instagram.com/wilpattunature');
 define('TWITTER_URL', 'https://twitter.com/wilpattunature');
 define('YOUTUBE_URL', 'https://youtube.com/wilpattunature');
+define('TIKTOK_URL', 'https://www.tiktok.com/@wilpattuchamodsf');
 
 // Timezone
 date_default_timezone_set('Asia/Colombo');

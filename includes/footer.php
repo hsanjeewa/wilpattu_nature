@@ -35,6 +35,9 @@ $footerLinks = getFooterLinks();
                         <a href="<?php echo YOUTUBE_URL; ?>" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
                             <i data-lucide="youtube" class="w-5 h-5"></i>
                         </a>
+                        <a href="<?php echo TIKTOK_URL; ?>" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+                            <i data-lucide="tiktok" class="w-5 h-5"></i>
+                        </a>
                     </div>
                 </div>
                 
