@@ -125,11 +125,6 @@ function getFeatures() {
             'description' => 'Knowledgeable guides who know every trail and creature in the park.'
         ],
         [
-            'icon' => 'credit-card',
-            'title' => 'Flexible Payments',
-            'description' => 'Online payments and card options for your convenience.'
-        ],
-        [
             'icon' => 'shield-check',
             'title' => 'Government Approved',
             'description' => 'Fully licensed and insured for your safety and peace of mind.'
