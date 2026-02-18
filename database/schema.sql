@@ -47,11 +47,11 @@ CREATE TABLE IF NOT EXISTS settings (
 
 -- Insert default packages
 INSERT INTO packages (name, subtitle, duration, price, features, image, is_popular, sort_order) VALUES
-('Half Day Safari', 'Morning Wildlife Experience', '6:00 AM - 10:30 AM', 55, '["Hotel pickup & drop-off", "Entrance fees included", "Light refreshments", "Expert Naturalist Guide", "Perfect for short visits"]', 'package-half-day.jpg', 0, 1),
-('Full Day Safari', 'Wilpattu National Park', '6:00 AM - 5:00 PM', 86, '["Hotel pickup & drop-off", "Entrance fees included", "Lunch & refreshments", "Expert Naturalist Guide", "Photography tips"]', 'package-full-day.jpg', 1, 2),
-('Extended Safari', 'In-Depth Wildlife Exploration', '6:00 AM - 2:00 PM', 75, '["Hotel pickup & drop-off", "Entrance fees included", "Lunch included", "Expert naturalist guide", "Extended wildlife viewing"]', 'package-extended.jpg', 0, 3),
+('Half Day Safari', 'Morning Wildlife Experience', '6:00 AM - 10:30 AM', 55, '["Hotel pickup & drop-off", "Light refreshments", "Expert Naturalist Guide", "Perfect for short visits"]', 'package-half-day.jpg', 0, 1),
+('Full Day Safari', 'Wilpattu National Park', '6:00 AM - 5:00 PM', 86, '["Hotel pickup & drop-off", "Lunch & refreshments", "Expert Naturalist Guide", "Photography tips"]', 'package-full-day.jpg', 1, 2),
+('Extended Safari', 'In-Depth Wildlife Exploration', '6:00 AM - 2:00 PM', 75, '["Hotel pickup & drop-off", "Lunch included", "Expert naturalist guide", "Extended wildlife viewing"]', 'package-extended.jpg', 0, 3),
 ('Night Safari', 'Buffer Zone Adventure', '8:30 PM - 11:00 PM', 65, '["Hotel pickup & drop-off", "Outside park in buffer zone", "Nocturnal wildlife spotting", "Expert night guide", "Unique night experience"]', 'package-night.jpg', 0, 4),
-('Exploring Ruins', 'Historical & Wildlife Tour', 'Full Day (6 AM - 5 PM)', 95, '["Hotel pickup & drop-off", "Entrance fees included", "Lunch & refreshments", "Historical site visit", "Expert guide"]', 'package-ruins.jpg', 0, 5);
+('Exploring Ruins', 'Historical & Wildlife Tour', 'Full Day (6 AM - 5 PM)', 95, '["Hotel pickup & drop-off", "Lunch & refreshments", "Historical site visit", "Expert guide"]', 'package-ruins.jpg', 0, 5);
 
 -- Insert gallery images
 INSERT INTO gallery_images (title, filename, category, sort_order, is_featured) VALUES
