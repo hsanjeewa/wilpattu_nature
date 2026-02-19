@@ -28,7 +28,7 @@ define('SITE_NAME', 'Wilpattu Nature');
 define('SITE_TAGLINE', 'Sri Lanka\'s Premier Wildlife Experience');
 
 // Contact information
-define('PHONE_PRIMARY', '+94 77 207 5924');
+define('PHONE_PRIMARY', '+94711833590');
 define('PHONE_SECONDARY', '+94 77 207 5924');
 define('EMAIL_PRIMARY', 'info@wilsfari.com');
 define('EMAIL_SECONDARY', 'bookings@wilsafari.com');

@@ -72,7 +72,7 @@ INSERT INTO gallery_images (title, filename, category, sort_order, is_featured) 
 INSERT INTO settings (key, value) VALUES
 ('site_name', 'Wilpattu Nature'),
 ('site_tagline', 'Sri Lanka''s Premier Safari Experience'),
-('phone_primary', '+94 77 207 5924'),
+('phone_primary', '+94711833590'),
 ('phone_secondary', '+94 77 207 5924'),
 ('email_primary', 'info@wilsafari.com'),
 ('email_secondary', 'bookings@wilsafari.com'),
