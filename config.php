@@ -33,7 +33,7 @@ define('PHONE_SECONDARY', '+94 77 207 5924');
 define('EMAIL_PRIMARY', 'info@wilsfari.com');
 define('EMAIL_SECONDARY', 'bookings@wilsafari.com');
 define('ADDRESS', 'Wilpattu National Park, North Western Province, Sri Lanka');
-define('WHATSAPP_NUMBER', '+94772075924');
+define('WHATSAPP_NUMBER', '+94711833590');
 
 // SMTP Configuration for email notifications
 define('SMTP_HOST', env('SMTP_HOST', 'mail.wilsafari.com'));

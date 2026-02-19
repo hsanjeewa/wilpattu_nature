@@ -77,7 +77,7 @@ INSERT INTO settings (key, value) VALUES
 ('email_primary', 'info@wilsafari.com'),
 ('email_secondary', 'bookings@wilsafari.com'),
 ('address', 'Wilpattu National Park, North Western Province, Sri Lanka'),
-('whatsapp_number', '+94772075924'),
+('whatsapp_number', '+94711833590'),
 ('facebook_url', 'https://www.facebook.com/share/1GUNBWJ8fD/'),
 ('instagram_url', 'https://instagram.com/wilpattunature'),
 ('twitter_url', 'https://twitter.com/wilpattunature'),
