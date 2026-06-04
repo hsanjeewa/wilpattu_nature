@@ -50,7 +50,6 @@ $packages = $db->getPackages();
                             <div>
                                 <span class="text-white/60 text-sm block mb-1">Email</span>
                                 <p class="text-white"><?php echo EMAIL_PRIMARY; ?></p>
-                                <p class="text-white"><?php echo EMAIL_SECONDARY; ?></p>
                             </div>
                         </div>
                         

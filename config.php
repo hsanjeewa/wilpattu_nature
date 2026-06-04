@@ -30,8 +30,7 @@ define('SITE_TAGLINE', 'Sri Lanka\'s Premier Wildlife Experience');
 // Contact information
 define('PHONE_PRIMARY', '+94711833590');
 define('PHONE_SECONDARY', '+94 77 207 5924');
-define('EMAIL_PRIMARY', 'info@wilsfari.com');
-define('EMAIL_SECONDARY', 'bookings@wilsafari.com');
+define('EMAIL_PRIMARY', 'booking@wilpattunature.lk');
 define('ADDRESS', 'Wilpattu National Park, North Western Province, Sri Lanka');
 define('WHATSAPP_NUMBER', '+94711833590');
 

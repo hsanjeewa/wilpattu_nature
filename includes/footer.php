@@ -87,7 +87,6 @@ $footerLinks = getFooterLinks();
                             <i data-lucide="mail" class="w-5 h-5 text-primary mt-0.5"></i>
                             <div>
                                 <p class="text-white/70 text-sm"><?php echo EMAIL_PRIMARY; ?></p>
-                                <p class="text-white/70 text-sm"><?php echo EMAIL_SECONDARY; ?></p>
                             </div>
                         </li>
                         <li class="flex items-start gap-3">
