@@ -39,6 +39,9 @@ function sendBookingEmail($bookingData) {
         $mail->addAddress(BOOKING_RECIPIENT);                 // Primary booking recipient
         // Set reply-to to user's email for reliable response handling
         $mail->addReplyTo($bookingData['email'], $bookingData['full_name']);
+        if (!empty(BOOKING_BCC)) {
+            $mail->addBCC(BOOKING_BCC);
+        }
         
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML

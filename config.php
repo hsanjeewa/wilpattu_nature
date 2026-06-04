@@ -43,6 +43,7 @@ define('SMTP_PASSWORD', env('SMTP_PASSWORD', ''));
 define('SMTP_FROM_EMAIL', env('SMTP_FROM_EMAIL', 'booking@wilsafari.com'));
 define('SMTP_FROM_NAME', env('SMTP_FROM_NAME', 'Wilpattu Nature'));
 define('BOOKING_RECIPIENT', env('BOOKING_RECIPIENT', 'booking@wilsafari.com'));
+define('BOOKING_BCC', env('BOOKING_BCC', ''));
 
 // Social media links
 define('FACEBOOK_URL', 'https://www.facebook.com/share/1GUNBWJ8fD/');
